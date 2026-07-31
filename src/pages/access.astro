@@ -1,0 +1,63 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Icon from '@/components/Icon.astro';
+import { accessRoutes, site } from '@/data/site';
+---
+<BaseLayout title="詳細アクセス" description="札幌、新千歳空港、旭川方面から、しのつ公園への車・JR・バスでの詳しい行き方と訪問時の注意点。" image="/images/shinotsu-tower.webp">
+  <PageHero eyebrow="ACCESS" title="旅は、道の選び方から。" description="札幌から車で約50分。公共交通ではJRと新篠津交通バスを乗り継ぎます。特に帰りのバス時刻と、冬の道路状況は先に確認しておきましょう。" image="/images/shinotsu-tower.webp" imageAlt="しのつ公園のランドマークと空" />
+
+  <section class="section-space container-shell">
+    <div class="grid gap-5 lg:grid-cols-2">
+      {accessRoutes.map((route) => (
+        <article class="rounded-2xl border border-[var(--line)] bg-white/55 p-7 md:p-8">
+          <div class="flex items-start justify-between gap-4"><div><p class="text-[.67rem] font-bold tracking-[.15em] text-[var(--lake-deep)]">{route.mode}</p><h2 class="mt-2 font-serif text-2xl">{route.from}</h2></div><span class="rounded-full bg-[var(--paper-deep)] px-3 py-2 text-xs font-bold">{route.total}</span></div>
+          <ol class="route-line mt-7 space-y-3">{route.steps.map((step, i) => <li class="flex items-center gap-4"><span class="route-dot">{i+1}</span><span class="text-sm font-semibold">{step}</span></li>)}</ol>
+          <p class="mt-7 border-t border-[var(--line)] pt-5 text-xs leading-6 text-[var(--ink-soft)]">{route.note}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell section-space grid gap-10 lg:grid-cols-[1fr_1fr]">
+      <div>
+        <span class="eyebrow">DESTINATION</span><h2 class="display-title mt-5 text-4xl">目的地情報</h2>
+        <dl class="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)] text-sm">
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">名称</dt><dd>しのつ公園</dd></div>
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">所在地</dt><dd>{site.address}</dd></div>
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">座標</dt><dd>43.213277, 141.6447268</dd></div>
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">駐車場</dt><dd>道の駅・温泉周辺 約100台、無料</dd></div>
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">問合せ</dt><dd>しんしのつ温泉 たっぷの湯　{site.phone}</dd></div>
+        </dl>
+        <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" class="btn-primary mt-7">Google マップで開く <Icon name="map" class="h-4 w-4" /></a>
+      </div>
+      <div class="relative overflow-hidden rounded-[1.7rem] border border-[var(--line)] bg-[#e7e5da] p-7 grid-lines md:p-10">
+        <div class="absolute -right-16 -top-16 h-52 w-52 rounded-full border-[30px] border-white/40"></div>
+        <p class="text-xs font-bold tracking-[.18em] text-[var(--lake-deep)]">SIMPLE MAP</p>
+        <div class="relative mt-8 min-h-[330px]">
+          <div class="absolute left-[8%] top-[18%] rounded-full bg-white px-4 py-2 text-xs font-bold shadow">札幌</div>
+          <div class="absolute left-[42%] top-[36%] h-px w-[33%] -rotate-12 bg-[var(--lake-deep)]"></div>
+          <div class="absolute right-[8%] top-[30%] rounded-full bg-[var(--ink)] px-4 py-2 text-xs font-bold text-white shadow">しのつ公園</div>
+          <div class="absolute left-[25%] bottom-[20%] rounded-full bg-white px-4 py-2 text-xs font-bold shadow">新千歳空港</div>
+          <div class="absolute left-[42%] bottom-[34%] h-px w-[38%] rotate-[-28deg] bg-[var(--lake-deep)]"></div>
+          <div class="absolute right-[30%] bottom-[8%] rounded-full bg-white px-4 py-2 text-xs font-bold shadow">岩見沢</div>
+          <div class="absolute right-[19%] bottom-[21%] h-px w-[18%] rotate-[55deg] bg-[var(--lake-deep)]"></div>
+          <div class="absolute right-[15%] top-[47%] h-16 w-24 rounded-[50%] border-2 border-[var(--lake)] bg-[rgba(122,165,170,.18)]"><span class="absolute inset-0 grid place-items-center text-[.65rem] font-bold text-[var(--lake-deep)]">しのつ湖</span></div>
+        </div>
+        <p class="mt-4 text-[.68rem] leading-5 text-[var(--ink-soft)]">位置関係を示す概略図です。実際の経路はナビゲーションで確認してください。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <span class="eyebrow">TRAVEL NOTES</span><h2 class="display-title mt-5 text-4xl">訪問前のチェック</h2>
+    <div class="mt-9 grid gap-5 md:grid-cols-3">
+      {[
+        ['バス時刻','公共交通は本数が限られます。到着より先に、帰りの便を決めておくと安心です。','train'],
+        ['冬の運転','吹雪、凍結、視界不良を想定し、時間に余裕を。無理な移動は避けてください。','snow'],
+        ['施設営業','温泉、飲食、キャンプ、ワカサギ釣りは季節・日程で条件が変わります。','clock'],
+      ].map(([t,d,icon]) => <article class="rounded-2xl border border-[var(--line)] bg-white/50 p-7"><Icon name={icon as 'train'|'snow'|'clock'} class="h-7 w-7 text-[var(--lake-deep)]"/><h3 class="mt-5 font-serif text-2xl">{t}</h3><p class="mt-4 text-sm leading-7 text-[var(--ink-soft)]">{d}</p></article>)}
+    </div>
+  </section>
+</BaseLayout>

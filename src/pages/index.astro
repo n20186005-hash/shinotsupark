@@ -1,0 +1,126 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Icon from '@/components/Icon.astro';
+import { quickFacts, seasons, foods, nearbySpots } from '@/data/site';
+---
+<BaseLayout>
+  <section class="relative min-h-[calc(100svh-72px)] overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/shinotsu-overview.webp" alt="しのつ公園としのつ湖を見渡す風景" class="h-full w-full object-cover" width="1600" height="1067" fetchpriority="high" />
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(20,47,50,.72)_0%,rgba(20,47,50,.28)_58%,rgba(20,47,50,.05)_100%)]"></div>
+      <div class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[var(--paper)] to-transparent"></div>
+    </div>
+    <div class="container-shell relative z-10 flex min-h-[calc(100svh-72px)] items-center py-20">
+      <div class="max-w-3xl text-white">
+        <p class="text-xs font-bold tracking-[.28em] text-white/80">HOKKAIDO · SHINSHINOTSU</p>
+        <h1 class="display-title mt-6 text-5xl leading-[1.16] sm:text-6xl lg:text-[5.4rem]">空と湖のあいだで、<br />深呼吸する。</h1>
+        <p class="mt-7 max-w-xl text-base leading-8 text-white/85 md:text-lg">しのつ湖の水辺、広い芝生、田園の風。札幌から少し足を伸ばして、何もしない時間まで楽しめる公園へ。</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="/park/" class="btn-primary !border-white !bg-white !text-[var(--ink)]">公園を知る <Icon name="arrow" class="h-4 w-4" /></a>
+          <a href="/access/" class="btn-secondary !border-white/35 !bg-white/10 !text-white">アクセスを見る <Icon name="map" class="h-4 w-4" /></a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-10 right-6 z-10 hidden rotate-90 text-[.62rem] font-bold tracking-[.25em] text-white/70 lg:block">SCROLL TO EXPLORE —</div>
+  </section>
+
+  <section class="container-shell -mt-6 relative z-20">
+    <div class="surface grid overflow-hidden rounded-2xl md:grid-cols-3">
+      {quickFacts.map((fact, index) => (
+        <div class:list={['px-7 py-6', index > 0 && 'border-t border-[var(--line)] md:border-l md:border-t-0']}>
+          <p class="text-xs font-bold tracking-[.12em] text-[var(--ink-soft)]">{fact.label}</p>
+          <p class="mt-1 font-serif text-2xl">{fact.value}</p>
+          <p class="mt-1 text-[.68rem] text-[var(--ink-soft)]">{fact.note}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <div class="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
+      <div class="grid grid-cols-2 gap-4">
+        <div class="photo-frame aspect-[4/5] translate-y-8"><img src="/images/shinotsu-path.webp" alt="公園の小径と青空" loading="lazy" width="1067" height="1600" /></div>
+        <div class="space-y-4">
+          <div class="photo-frame aspect-square"><img src="/images/shinotsu-flowers.webp" alt="しのつ公園に咲く花と空" loading="lazy" width="1600" height="1067" /></div>
+          <div class="rounded-2xl bg-[var(--ink)] p-6 text-white">
+            <p class="font-serif text-3xl">50 min.</p>
+            <p class="mt-2 text-xs leading-5 text-white/70">札幌から車で約50分。都市の近くに残る、空の広い農村へ。</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:pl-8">
+        <span class="eyebrow">A QUIET LAKESIDE</span>
+        <h2 class="display-title mt-5 text-4xl md:text-5xl">湖畔の一日を、<br />自分の速さで。</h2>
+        <p class="lead-text mt-7">しのつ公園は、しのつ湖のほとりに広がる新篠津村の水辺の公園です。暖かな季節は散歩やキャンプ、冬は雪景色とワカサギ釣り。すぐそばには温泉、道の駅、食事処があり、短い立ち寄りから一日の滞在まで組み立てられます。</p>
+        <a href="/park/" class="btn-secondary mt-8">しのつ公園の過ごし方 <Icon name="arrow" class="h-4 w-4" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell section-space">
+      <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div><span class="eyebrow">FOUR SEASONS</span><h2 class="display-title mt-4 text-4xl md:text-5xl">四季が、旅の表情を変える。</h2></div>
+        <a href="/season/" class="btn-secondary">季節の案内 <Icon name="arrow" class="h-4 w-4" /></a>
+      </div>
+      <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {seasons.map((item, i) => (
+          <article class="group rounded-2xl border border-[var(--line)] bg-[rgba(255,255,255,.48)] p-6 transition hover:-translate-y-1 hover:bg-white">
+            <div class="flex items-center justify-between"><span class="font-serif text-4xl">{item.season}</span><span class="text-[.65rem] tracking-[.18em] text-[var(--ink-soft)]">0{i+1}</span></div>
+            <h3 class="mt-8 font-serif text-xl leading-8">{item.title}</h3>
+            <p class="mt-4 text-sm leading-7 text-[var(--ink-soft)]">{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <span class="eyebrow">TASTE THE VILLAGE</span>
+        <h2 class="display-title mt-5 text-4xl md:text-5xl">村の味を、<br />湖畔で。</h2>
+        <p class="lead-text mt-6">新篠津産のお米、野菜、味噌、生乳。公園の周りには、この土地の味を気軽に楽しめる店が集まっています。</p>
+        <a href="/food/" class="btn-secondary mt-7">周辺グルメをすべて見る <Icon name="arrow" class="h-4 w-4" /></a>
+      </div>
+      <div class="divide-y divide-[var(--line)] border-y border-[var(--line)]">
+        {foods.slice(0,3).map((food, i) => (
+          <article class="grid gap-4 py-7 sm:grid-cols-[3rem_1fr_auto] sm:items-start">
+            <span class="font-serif text-2xl text-[var(--lake-deep)]">0{i+1}</span>
+            <div><p class="text-[.67rem] font-bold tracking-[.14em] text-[var(--ink-soft)]">{food.category} · {food.area}</p><h3 class="mt-2 font-serif text-2xl">{food.name}</h3><p class="mt-3 text-sm leading-7 text-[var(--ink-soft)]">{food.lead}</p></div>
+            <span class="mt-1 text-xs text-[var(--ink-soft)]">{food.hours}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[var(--ink)] text-white">
+    <div class="container-shell section-space">
+      <div class="grid items-center gap-10 lg:grid-cols-[1fr_1fr]">
+        <div>
+          <span class="eyebrow !text-[var(--sun)]">YOUR MEMORY, YOUR DEVICE</span>
+          <h2 class="display-title mt-5 text-4xl md:text-6xl">旅の一枚を、<br />小さなカードに。</h2>
+          <p class="mt-6 max-w-xl text-base leading-8 text-white/70">写真やセルフィーを選び、しのつ公園の空気に合うフレームを重ねて保存。画像はブラウザ内だけで作られ、サーバーには送信されません。</p>
+          <div class="mt-8 flex flex-wrap gap-3"><a href="/memory-card/" class="btn-primary !border-white !bg-white !text-[var(--ink)]">記念カードをつくる <Icon name="camera" class="h-4 w-4" /></a><span class="inline-flex items-center gap-2 px-4 text-xs text-white/60"><Icon name="shield" class="h-4 w-4" />写真は端末内のみ</span></div>
+        </div>
+        <div class="mx-auto w-full max-w-md rotate-2 rounded-[1.8rem] bg-[#f5eee0] p-4 text-[var(--ink)] shadow-2xl">
+          <div class="relative aspect-[3/4] overflow-hidden rounded-[1.2rem]"><img src="/images/shinotsu-sky.webp" alt="記念カードの完成イメージ" class="h-full w-full object-cover" loading="lazy" width="1600" height="1048" /><div class="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-white/10"></div><div class="absolute inset-x-5 bottom-5 text-white"><p class="text-[.6rem] font-bold tracking-[.22em]">HOKKAIDO · SHINSHINOTSU</p><p class="mt-2 font-serif text-3xl">しのつ公園</p><p class="mt-1 text-xs">2026.07.30</p></div></div>
+          <p class="py-3 text-center text-[.63rem] font-bold tracking-[.22em]">A DAY BY SHINOTSU LAKE</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between"><div><span class="eyebrow">NEARBY</span><h2 class="display-title mt-4 text-4xl md:text-5xl">公園から、もう一歩。</h2></div><a href="/around/" class="btn-secondary">周辺スポット <Icon name="arrow" class="h-4 w-4" /></a></div>
+    <div class="mt-10 grid gap-5 md:grid-cols-3">
+      {nearbySpots.slice(0,3).map((spot) => (
+        <a href="/around/" class="group overflow-hidden rounded-2xl border border-[var(--line)] bg-white/45">
+          <div class="photo-frame aspect-[16/11] !rounded-none"><img src={spot.image} alt={spot.imageAlt} loading="lazy" width="1600" height="1067" /></div>
+          <div class="p-6"><p class="text-[.65rem] font-bold tracking-[.15em] text-[var(--lake-deep)]">{spot.tag} · {spot.distance}</p><h3 class="mt-3 font-serif text-2xl">{spot.name}</h3><p class="mt-3 text-sm leading-7 text-[var(--ink-soft)]">{spot.description}</p></div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

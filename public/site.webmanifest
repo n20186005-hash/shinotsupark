@@ -1,0 +1,10 @@
+{
+  "name": "しのつ公園 旅の案内",
+  "short_name": "しのつ公園",
+  "description": "北海道・新篠津村、しのつ公園としのつ湖畔を楽しむための非公式ガイド。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f3ea",
+  "theme_color": "#173f45",
+  "lang": "ja"
+}

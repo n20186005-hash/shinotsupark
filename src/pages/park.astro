@@ -1,0 +1,47 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Icon from '@/components/Icon.astro';
+---
+<BaseLayout title="公園を知る" description="しのつ公園としのつ湖畔の特徴、過ごし方、訪問前に知っておきたいポイントを紹介します。" image="/images/shinotsu-bridge.webp">
+  <PageHero eyebrow="ABOUT THE PARK" title="水辺と空が、主役の公園。" description="しのつ公園は、新篠津村のしのつ湖畔に広がる開放的な公園です。温泉や道の駅と隣り合い、散歩だけの日も、キャンプを楽しむ日も、自分らしい滞在ができます。" image="/images/shinotsu-bridge.webp" imageAlt="しのつ公園の橋と青空" />
+
+  <section class="section-space container-shell">
+    <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+      <div><span class="eyebrow">A PLACE TO PAUSE</span><h2 class="display-title mt-5 text-4xl md:text-5xl">何かをするためだけではなく、立ち止まるために。</h2></div>
+      <div class="space-y-6 text-base leading-9 text-[var(--ink-soft)]">
+        <p>新篠津村は、札幌から車で約50分の田園地帯。しのつ公園では、湖面を眺めながら歩いたり、芝生で過ごしたり、季節の空気をそのまま味わえます。</p>
+        <p>暖かい季節にはキャンプやグランピング、バーベキュー。冬にはしのつ湖でワカサギ釣り。隣接する「しんしのつ温泉 たっぷの湯」で温まり、道の駅で食事や買い物をする流れも、この場所ならではです。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-shell pb-10">
+    <div class="grid gap-5 md:grid-cols-12">
+      <div class="photo-frame aspect-[4/3] md:col-span-8"><img src="/images/shinotsu-overview.webp" alt="しのつ公園と湖畔の広がり" loading="lazy" width="1600" height="1067" /></div>
+      <div class="photo-frame aspect-[4/3] md:col-span-4 md:aspect-auto"><img src="/images/shinotsu-path.webp" alt="しのつ公園の散策路" loading="lazy" width="1067" height="1600" /></div>
+      <div class="photo-frame aspect-[4/3] md:col-span-4"><img src="/images/shinotsu-flowers.webp" alt="公園の花と青空" loading="lazy" width="1600" height="1067" /></div>
+      <div class="photo-frame aspect-[4/3] md:col-span-8"><img src="/images/shinotsu-sky.webp" alt="新篠津村の大きな空" loading="lazy" width="1600" height="1048" /></div>
+    </div>
+  </section>
+
+  <section class="section-space border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell">
+      <span class="eyebrow">HOW TO SPEND</span><h2 class="display-title mt-5 text-4xl md:text-5xl">おすすめの過ごし方</h2>
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {[
+          ['01','短い散歩','湖畔を歩き、道の駅で地元の味を選ぶ。1〜2時間でも、新篠津らしい空の広さを感じられます。'],
+          ['02','半日の小旅行','公園散歩、湖畔ランチ、たっぷの湯。移動を詰め込まず、ひとつの場所でゆっくり過ごす計画です。'],
+          ['03','一日アウトドア','キャンプやグランピングを中心に、夕景、星空、朝の湖面まで。営業・予約条件は事前に確認を。'],
+        ].map(([n,t,d]) => <article class="rounded-2xl border border-[var(--line)] bg-white/55 p-7"><p class="font-serif text-3xl text-[var(--lake-deep)]">{n}</p><h3 class="mt-8 font-serif text-2xl">{t}</h3><p class="mt-4 text-sm leading-7 text-[var(--ink-soft)]">{d}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <div class="grid gap-8 rounded-[1.7rem] bg-[var(--ink)] p-8 text-white md:grid-cols-[1fr_auto] md:items-center md:p-12">
+      <div><span class="text-xs font-bold tracking-[.2em] text-[var(--sun)]">BEFORE YOU GO</span><h2 class="display-title mt-4 text-3xl md:text-4xl">季節と天候に合わせて、余白のある計画を。</h2><p class="mt-5 max-w-3xl text-sm leading-7 text-white/70">北海道の天候、冬の道路、各施設の営業やイベントは変わることがあります。出発前に最新の交通・施設情報を確認してください。</p></div>
+      <a href="/access/" class="btn-primary !border-white !bg-white !text-[var(--ink)]">アクセス詳細 <Icon name="arrow" class="h-4 w-4" /></a>
+    </div>
+  </section>
+</BaseLayout>

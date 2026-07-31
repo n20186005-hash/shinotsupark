@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #183236;
+  --ink-soft: #435e60;
+  --paper: #f5f3ea;
+  --paper-deep: #ece7da;
+  --lake: #7aa5aa;
+  --lake-deep: #2d6269;
+  --field: #788d63;
+  --sun: #e9c78d;
+  --line: rgba(24, 50, 54, 0.16);
+  --shadow: 0 18px 60px rgba(31, 64, 67, 0.12);
+  color-scheme: light;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper); }
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(122, 165, 170, .16), transparent 27rem),
+    linear-gradient(180deg, #f8f7f1 0%, var(--paper) 35%, #f2efe6 100%);
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "YuGothic", "Noto Sans JP", system-ui, sans-serif;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .18;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+::selection { background: rgba(122, 165, 170, .35); }
+
+.container-shell { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+.section-space { padding-block: clamp(4.5rem, 9vw, 8.5rem); }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  color: var(--lake-deep);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.eyebrow::before { content: ""; width: 2.4rem; height: 1px; background: currentColor; opacity: .55; }
+.display-title {
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-weight: 500;
+  letter-spacing: .04em;
+  line-height: 1.22;
+  text-wrap: balance;
+}
+.lead-text { color: var(--ink-soft); font-size: clamp(1rem, 1.4vw, 1.16rem); line-height: 2; }
+.surface {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.56);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+.soft-border { border: 1px solid var(--line); }
+.photo-frame { overflow: hidden; border-radius: 1.25rem; background: #d9ded8; }
+.photo-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.photo-frame:hover img { transform: scale(1.035); }
+.btn-primary, .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  min-height: 3.25rem;
+  padding: .8rem 1.25rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .9rem;
+  letter-spacing: .04em;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+.btn-primary { color: white; background: var(--ink); border: 1px solid var(--ink); }
+.btn-primary:hover { transform: translateY(-2px); background: var(--lake-deep); border-color: var(--lake-deep); }
+.btn-secondary { border: 1px solid var(--line); background: rgba(255,255,255,.55); }
+.btn-secondary:hover { transform: translateY(-2px); border-color: rgba(45,98,105,.45); background: white; }
+.skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 1000; background: white; padding: .75rem 1rem; border-radius: .5rem; }
+.skip-link:focus { top: 1rem; }
+.grid-lines {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.route-line { position: relative; }
+.route-line::before { content: ""; position: absolute; left: 1rem; top: 1.3rem; bottom: 1.3rem; width: 1px; background: var(--line); }
+.route-dot { position: relative; z-index: 1; width: 2rem; height: 2rem; border-radius: 999px; display:grid; place-items:center; background:var(--paper); border:1px solid var(--line); font-size:.7rem; }
+
+@media (max-width: 767px) {
+  .container-shell { width: min(100% - 24px, 1180px); }
+  .section-space { padding-block: 4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

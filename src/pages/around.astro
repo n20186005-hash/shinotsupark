@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import { nearbySpots } from '@/data/site';
+---
+<BaseLayout title="周辺スポット" description="しのつ公園周辺の温泉、道の駅、天文台、宮島沼、いわみざわ公園、ワイナリーを紹介。" image="/images/shinotsu-sky.webp">
+  <PageHero eyebrow="AROUND SHINOTSU" title="湖畔から、空知の風景へ。" description="公園に隣接する温泉と道の駅、村内の天文台、少し足を伸ばして自然・花・ワインへ。移動を詰め込みすぎず、テーマをひとつ選ぶのがおすすめです。" image="/images/shinotsu-sky.webp" imageAlt="新篠津村の広い青空" />
+  <section class="section-space container-shell">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {nearbySpots.map((spot, i) => (
+        <article class="relative overflow-hidden rounded-[1.4rem] border border-[var(--line)] bg-white/50 p-7">
+          <span class="absolute -right-2 -top-7 font-serif text-[7rem] leading-none text-[rgba(45,98,105,.055)]" aria-hidden="true">0{i + 1}</span>
+          <div class="relative">
+            <div class="flex items-center justify-between gap-4"><span class="text-[.65rem] font-bold tracking-[.15em] text-[var(--lake-deep)]">{spot.tag}</span><span class="text-[.65rem] text-[var(--ink-soft)]">{spot.distance}</span></div>
+            <div class="mt-8 h-px w-12 bg-[var(--lake)]"></div>
+            <h2 class="mt-5 font-serif text-2xl">{spot.name}</h2>
+            <p class="mt-4 text-sm leading-7 text-[var(--ink-soft)]">{spot.description}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+  <section class="border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell section-space">
+      <span class="eyebrow">THREE ROUTES</span><h2 class="display-title mt-5 text-4xl">旅のテーマをひとつ。</h2>
+      <div class="mt-10 grid gap-5 md:grid-cols-3">
+        {[
+          ['休む日','しのつ公園 → 湖畔ランチ → たっぷの湯','移動を増やさず、水辺と温泉をゆっくり楽しむ。'],
+          ['空を見る日','田園ドライブ → しのつ公園 → しんしのつ天文台','日中の青空から夜の星空へ。観察開催日を確認して計画。'],
+          ['空知を巡る日','しのつ公園 → 岩見沢方面 → ワイナリー・公園','花や食を目的に、近隣市町へ少し足を伸ばす。'],
+        ].map(([t,r,d],i) => <article class="rounded-2xl border border-[var(--line)] bg-white/60 p-7"><p class="font-serif text-3xl text-[var(--lake-deep)]">0{i+1}</p><h3 class="mt-6 font-serif text-2xl">{t}</h3><p class="mt-4 text-sm font-semibold leading-7">{r}</p><p class="mt-3 text-xs leading-6 text-[var(--ink-soft)]">{d}</p></article>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
