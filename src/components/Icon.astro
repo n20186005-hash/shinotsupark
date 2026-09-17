@@ -1,5 +1,5 @@
 ---
-interface Props { name: 'arrow' | 'menu' | 'close' | 'map' | 'camera' | 'download' | 'train' | 'car' | 'leaf' | 'clock' | 'shield' | 'sun' | 'snow'; class?: string; }
+interface Props { name: 'arrow' | 'menu' | 'close' | 'map' | 'camera' | 'download' | 'train' | 'car' | 'leaf' | 'clock' | 'shield' | 'sun' | 'snow' | 'star' | 'wc' | 'fuel' | 'bed' | 'cart' | 'plug' | 'plane'; class?: string; }
 const { name, class: className = 'h-5 w-5' } = Astro.props;
 const paths: Record<Props['name'], string> = {
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
@@ -15,6 +15,13 @@ const paths: Record<Props['name'], string> = {
   shield: '<path d="M12 22s8-3 8-10V5l-8-3-8 3v7c0 7 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/>',
   snow: '<path d="M12 2v20M4.22 6.5l15.56 11M4.22 17.5l15.56-11M8 4l4 2 4-2M8 20l4-2 4 2M3 10l3 2-3 2M21 10l-3 2 3 2"/>',
+  star: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 17l-5.2 2.6 1-5.8-4.3-4.1 5.9-.9L12 3.5Z"/>',
+  wc: '<path d="M8 3h8v4a4 4 0 0 1-8 0V3ZM12 11v3M8 20h8"/>',
+  fuel: '<path d="M4 21V6a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v15M13 10h2.5a2 2 0 0 1 2 2v9M6 21h6M6 11h6"/>',
+  bed: '<path d="M3 18v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5M3 13h18M3 18v2M21 18v2M7 11V9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2"/>',
+  cart: '<circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/><path d="M3 4h2l2.3 11h9.4l1.8-7H6.2"/>',
+  plug: '<path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-10 0V8ZM12 16v5"/>',
+  plane: '<path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-4.5L21 16Z"/>',
 };
 ---
 <svg class={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={paths[name]}></svg>

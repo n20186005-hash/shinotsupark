@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Icon from '@/components/Icon.astro';
+import GoogleRating from '@/components/GoogleRating.astro';
+import Weather from '@/components/Weather.astro';
 import { quickFacts, seasons, foods, nearbySpots } from '@/data/site';
 ---
-<BaseLayout>
+<BaseLayout title="しのつ湖・キャンプ・ワカサギ釣り・たっぷの湯" description="北海道新篠津村の「しのつ公園」と「しのつ湖」。手ぶらキャンプ・BBQ、ワカサギ釣り、温泉「たっぷの湯」を網羅。札幌から車で約50分、無料駐車場あり。">
   <section class="relative min-h-[calc(100svh-72px)] overflow-hidden">
     <div class="absolute inset-0">
       <img src="/images/shinotsu-overview.webp" alt="しのつ公園としのつ湖を見渡す風景" class="h-full w-full object-cover" width="1600" height="1067" fetchpriority="high" />
@@ -36,6 +38,10 @@ import { quickFacts, seasons, foods, nearbySpots } from '@/data/site';
     </div>
   </section>
 
+  <section class="container-shell">
+    <Weather />
+  </section>
+
   <section class="section-space container-shell">
     <div class="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
       <div class="grid grid-cols-2 gap-4">
@@ -55,6 +61,10 @@ import { quickFacts, seasons, foods, nearbySpots } from '@/data/site';
         <a href="/park/" class="btn-secondary mt-8">しのつ公園の過ごし方 <Icon name="arrow" class="h-4 w-4" /></a>
       </div>
     </div>
+  </section>
+
+  <section class="container-shell">
+    <GoogleRating />
   </section>
 
   <section class="border-y border-[var(--line)] bg-white/30">
@@ -92,6 +102,30 @@ import { quickFacts, seasons, foods, nearbySpots } from '@/data/site';
           </article>
         ))}
       </div>
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <div>
+        <span class="eyebrow">WAYS TO ENJOY</span>
+        <h2 class="display-title mt-4 text-4xl md:text-5xl">目的別に楽しむ。</h2>
+      </div>
+      <a href="/park/" class="btn-secondary">しのつ公園の過ごし方 <Icon name="arrow" class="h-4 w-4" /></a>
+    </div>
+    <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      {[
+        ['しのつ湖','湖畔の散歩やボート、夕景・朝焼けの撮影。しのつ公園の目の前に広がる自然湖。','map'],
+        ['キャンプ・BBQ','デイキャンプから手ぶらプラン、ペット同伴可のエリアも。バーベキュー場あり。','leaf'],
+        ['ワカサギ釣り','冬の氷上釣りから夏の釣りまで、北海道ならではの体験が楽しめます。','snow'],
+        ['たっぷの湯・道の駅','隣接する温泉で日帰り入浴、道の駅で地元の味とお土産を。','sun'],
+      ].map(([t,d,icon]) => (
+        <article class="group rounded-2xl border border-[var(--line)] bg-white/55 p-7">
+          <Icon name={icon as 'map'|'leaf'|'snow'|'sun'} class="h-7 w-7 text-[var(--lake-deep)]" />
+          <h3 class="mt-6 font-serif text-2xl">{t}</h3>
+          <p class="mt-4 text-sm leading-7 text-[var(--ink-soft)]">{d}</p>
+        </article>
+      ))}
     </div>
   </section>
 

@@ -2,16 +2,54 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import Icon from '@/components/Icon.astro';
+import GoogleRating from '@/components/GoogleRating.astro';
+import Sources from '@/components/Sources.astro';
+import Weather from '@/components/Weather.astro';
+import { nearbySpots, faq, site, seasonalStrategy, groupPlans, generalRoutes } from '@/data/site';
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
 ---
-<BaseLayout title="公園を知る" description="しのつ公園としのつ湖畔の特徴、過ごし方、訪問前に知っておきたいポイントを紹介します。" image="/images/shinotsu-bridge.webp">
+<BaseLayout title="公園・しのつ湖の過ごし方" description="しのつ公園（Shinotsu Park）としのつ湖畔の過ごし方。キャンプ・BBQ、ワカサギ釣り、温泉「たっぷの湯」、無料駐車場、アクセス、よくある質問を紹介。" image="/images/shinotsu-bridge.webp" extraJsonLd={[faqJsonLd]}>
   <PageHero eyebrow="ABOUT THE PARK" title="水辺と空が、主役の公園。" description="しのつ公園は、新篠津村のしのつ湖畔に広がる開放的な公園です。温泉や道の駅と隣り合い、散歩だけの日も、キャンプを楽しむ日も、自分らしい滞在ができます。" image="/images/shinotsu-bridge.webp" imageAlt="しのつ公園の橋と青空" />
+
+  <section class="container-shell">
+    <GoogleRating />
+  </section>
+
+  <section class="container-shell">
+    <Weather />
+  </section>
 
   <section class="section-space container-shell">
     <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
-      <div><span class="eyebrow">A PLACE TO PAUSE</span><h2 class="display-title mt-5 text-4xl md:text-5xl">何かをするためだけではなく、立ち止まるために。</h2></div>
+      <div><span class="eyebrow">ABOUT THE PARK</span><h2 class="display-title mt-5 text-4xl md:text-5xl">しのつ公園（Shinotsu Park）について</h2></div>
       <div class="space-y-6 text-base leading-9 text-[var(--ink-soft)]">
-        <p>新篠津村は、札幌から車で約50分の田園地帯。しのつ公園では、湖面を眺めながら歩いたり、芝生で過ごしたり、季節の空気をそのまま味わえます。</p>
+        <p>しのつ公園（Shinotsu Park）は、北海道石狩郡新篠津村のしのつ湖畔に広がる水辺の公園です。温泉や道の駅と隣り合い、散歩だけの日も、キャンプを楽しむ日も、自分らしい滞在ができます。</p>
         <p>暖かい季節にはキャンプやグランピング、バーベキュー。冬にはしのつ湖でワカサギ釣り。隣接する「しんしのつ温泉 たっぷの湯」で温まり、道の駅で食事や買い物をする流れも、この場所ならではです。</p>
+        <nav aria-label="パンくずリスト" class="inline-flex flex-wrap items-center gap-2 rounded-full border border-[var(--line)] bg-white/55 px-4 py-2 text-xs font-semibold text-[var(--ink-soft)]">
+          <span>しのつ公園</span><span aria-hidden="true">→</span><span>新篠津村</span><span aria-hidden="true">→</span><span>北海道</span><span aria-hidden="true">→</span><span>日本</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell">
+      <span class="eyebrow">A PLACE TO PAUSE</span><h2 class="display-title mt-5 text-4xl md:text-5xl">何かをするためだけではなく、立ち止まるために。</h2>
+      <div class="mt-8 grid gap-12 lg:grid-cols-2">
+        <div class="space-y-6 text-base leading-9 text-[var(--ink-soft)]">
+          <p>新篠津村は、札幌から車で約50分の田園地帯。しのつ公園では、湖面を眺めながら歩いたり、芝生で過ごしたり、季節の空気をそのまま味わえます。</p>
+          <p>暖かい季節にはキャンプやグランピング、バーベキュー。冬にはしのつ湖でワカサギ釣り。隣接する「しんしのつ温泉 たっぷの湯」で温まり、道の駅で食事や買い物をする流れも、この場所ならではです。</p>
+        </div>
+        <div class="photo-frame aspect-[4/3]"><img src="/images/shinotsu-overview.webp" alt="しのつ公園と湖畔の広がり" loading="lazy" width="1600" height="1067" /></div>
       </div>
     </div>
   </section>
@@ -36,6 +74,173 @@ import Icon from '@/components/Icon.astro';
         ].map(([n,t,d]) => <article class="rounded-2xl border border-[var(--line)] bg-white/55 p-7"><p class="font-serif text-3xl text-[var(--lake-deep)]">{n}</p><h3 class="mt-8 font-serif text-2xl">{t}</h3><p class="mt-4 text-sm leading-7 text-[var(--ink-soft)]">{d}</p></article>)}
       </div>
     </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1fr]">
+      <div>
+        <span class="eyebrow">LOCATION & HOW TO VISIT</span>
+        <h2 class="display-title mt-5 text-4xl md:text-5xl">しのつ公園への行き方</h2>
+        <dl class="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)] text-sm">
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">名称</dt><dd>しのつ公園（Shinotsu Park）</dd></div>
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">所在地</dt><dd>{site.address}</dd></div>
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">郵便番号</dt><dd>{site.postalCode}</dd></div>
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">座標</dt><dd>43.213277, 141.6447268</dd></div>
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">駐車場</dt><dd>道の駅・温泉周辺 約100台、無料</dd></div>
+          <div class="grid grid-cols-[6rem_1fr] gap-4 py-4"><dt class="font-bold">問合せ</dt><dd>しんしのつ温泉 たっぷの湯　{site.phone}</dd></div>
+        </dl>
+        <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" class="btn-primary mt-7">Google マップで開く <Icon name="map" class="h-4 w-4" /></a>
+      </div>
+      <div>
+        <iframe src={site.mapEmbedSrc} title="しのつ公園のGoogle マップ" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" class="rounded-2xl border border-[var(--line)]"></iframe>
+        <p class="mt-3 text-[.68rem] leading-5 text-[var(--ink-soft)]">地図はGoogle マップを表示しています。最新の経路はナビゲーションでご確認ください。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell">
+      <span class="eyebrow">LANDMARKS AROUND</span><h2 class="display-title mt-5 text-4xl md:text-5xl">周辺のランドマーク</h2>
+      <p class="lead-text mt-6">しのつ公園を訪れる際は、すぐそばの<strong class="text-[var(--ink)]">{site.nearbyLandmark1}</strong>や<strong class="text-[var(--ink)]">{site.nearbyLandmark2}</strong>をはじめ、村内外の観光地もあわせて巡れます。</p>
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {nearbySpots.slice(0,3).map((spot) => (
+          <article class="overflow-hidden rounded-2xl border border-[var(--line)] bg-white/55">
+            <div class="photo-frame aspect-[16/11] !rounded-none"><img src={spot.image} alt={spot.imageAlt} loading="lazy" width="1600" height="1067" /></div>
+            <div class="p-6"><p class="text-[.65rem] font-bold tracking-[.15em] text-[var(--lake-deep)]">{spot.tag} · {spot.distance}</p><h3 class="mt-3 font-serif text-2xl">{spot.name}</h3><p class="mt-3 text-sm leading-7 text-[var(--ink-soft)]">{spot.description}</p></div>
+          </article>
+        ))}
+      </div>
+      <a href="/around/" class="btn-secondary mt-8">周辺スポットをすべて見る <Icon name="arrow" class="h-4 w-4" /></a>
+    </div>
+  </section>
+
+  <section class="section-space border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell">
+      <span class="eyebrow">THEME GUIDES</span>
+      <h2 class="display-title mt-5 text-4xl md:text-5xl">テーマで知る、しのつ公園</h2>
+      <p class="lead-text mt-6">しのつ公園（Shinotsu Park）としのつ湖を、目的ごとに。キャンプ・BBQ、ワカサギ釣り、温泉「たっぷの湯」まで、滞在の組み立てに合わせてご覧ください。</p>
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {[
+          ['しのつ湖（湖畔）','公園の目の前に広がる自然湖。湖畔を散歩、ボートで遊び、夕景や朝焼けの撮影にも。冬はワカサギ釣りの名所です。','map'],
+          ['キャンプ・BBQ','デイキャンプやグランピング、手ぶらプラン、バーベキュー場をそろえ、ペット同伴可のエリアも。','leaf'],
+          ['ワカサギ釣り','北海道ならではの体験。冬はしのつ湖の氷上で、夏場も釣りを楽しめます。道具貸出は各施設へ。','snow'],
+          ['たっぷの湯・道の駅','隣接する「しんしのつ温泉 たっぷの湯」で日帰り入浴。道の駅で地元の味とお土産を。','sun'],
+        ].map(([t,d,icon]) => (
+          <article class="rounded-2xl border border-[var(--line)] bg-white/55 p-7">
+            <Icon name={icon as 'map'|'leaf'|'snow'|'sun'} class="h-7 w-7 text-[var(--lake-deep)]" />
+            <h3 class="mt-6 font-serif text-xl leading-8">{t}</h3>
+            <p class="mt-4 text-sm leading-7 text-[var(--ink-soft)]">{d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+      <div><span class="eyebrow">HISTORY & SIGNIFICANCE</span><h2 class="display-title mt-5 text-4xl md:text-5xl">しのつ公園のなりたち</h2></div>
+      <div class="space-y-6 text-base leading-9 text-[var(--ink-soft)]">
+        <p>しのつ公園は、新篠津村のしのつ湖畔に整備された水辺の公園です。湖と田園のあいだに、散歩道、芝生、キャンプ場、隣接する温泉と道の駅がそろい、村の日常と観光がゆるやかにつながる場所として親しまれています。</p>
+        <p>季節ごとに表情が変わり、春の湖畔散歩、夏のキャンプ、秋の収穫、冬のワカサギ釣りと雪景色。訪れる人それぞれのペースで、空と湖の時間を楽しめるのがこの公園の魅力です。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell">
+      <span class="eyebrow">SEASONAL STRATEGY</span><h2 class="display-title mt-5 text-4xl md:text-5xl">季節の渡航戦略</h2>
+      <p class="lead-text mt-6">北海道の一般的な季節傾向をまとめた目安です。年によって異なるため、訪問前に最新の天候と施設情報をご確認ください。</p>
+      <div class="mt-10 overflow-x-auto">
+        <table class="w-full min-w-[760px] border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-[var(--line)] text-left text-[var(--ink-soft)]">
+              <th class="py-3 pr-4 font-bold">季節</th><th class="py-3 pr-4 font-bold">気象の目安</th><th class="py-3 pr-4 font-bold">湖・水辺の様子</th><th class="py-3 pr-4 font-bold">野生動物・自然</th><th class="py-3 pl-4 font-bold">おすすめの過ごし方</th>
+            </tr>
+          </thead>
+          <tbody>
+            {seasonalStrategy.map((row) => (
+              <tr class="border-b border-[var(--line)] align-top">
+                <td class="py-4 pr-4 font-serif text-lg">{row.season}</td>
+                <td class="py-4 pr-4 leading-7 text-[var(--ink-soft)]">{row.weather}</td>
+                <td class="py-4 pr-4 leading-7 text-[var(--ink-soft)]">{row.water}</td>
+                <td class="py-4 pr-4 leading-7 text-[var(--ink-soft)]">{row.nature}</td>
+                <td class="py-4 pl-4 leading-7 text-[var(--ink)]">{row.tip}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <span class="eyebrow">PLANS BY TRAVELER</span><h2 class="display-title mt-5 text-4xl md:text-5xl">旅の構成で選ぶプラン</h2>
+    <div class="mt-10 grid gap-5 md:grid-cols-3">
+      {groupPlans.map((plan) => (
+        <article class="rounded-2xl border border-[var(--line)] bg-white/55 p-7">
+          <div class="flex items-center gap-3"><Icon name={plan.icon} class="h-6 w-6 text-[var(--lake-deep)]" /><div><p class="font-serif text-xl">{plan.title}</p><p class="text-[.65rem] font-bold tracking-[.14em] text-[var(--ink-soft)]">{plan.pace}</p></div></div>
+          <p class="mt-5 text-sm leading-7 text-[var(--ink-soft)]">{plan.lead}</p>
+          <ul class="mt-5 space-y-2 text-sm leading-7 text-[var(--ink-soft)]">{plan.steps.map((s) => <li class="flex gap-2"><span class="text-[var(--lake-deep)]">・</span><span>{s}</span></li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-space border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell">
+      <span class="eyebrow">SUGGESTED ROUTES</span><h2 class="display-title mt-5 text-4xl md:text-5xl">おすすめの回り方</h2>
+      <div class="mt-10 grid gap-5 md:grid-cols-2">
+        {generalRoutes.map((route) => (
+          <article class="rounded-2xl border border-[var(--line)] bg-white/60 p-7">
+            <div class="flex items-center gap-3"><Icon name={route.icon} class="h-6 w-6 text-[var(--lake-deep)]" /><h3 class="font-serif text-2xl">{route.title}</h3></div>
+            <ol class="mt-6 space-y-3 text-sm leading-7 text-[var(--ink-soft)]">{route.steps.map((s, i) => <li class="flex gap-3"><span class="route-dot !h-7 !w-7 text-xs">{i + 1}</span><span>{s}</span></li>)}</ol>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div class="rounded-2xl border border-[var(--line)] bg-white/55 p-7 md:p-9">
+        <span class="eyebrow">LEARN THE LAKE</span><h2 class="display-title mt-4 text-3xl">しのつ湖と村の自然を知る</h2>
+        <div class="mt-6 space-y-5 text-sm leading-8 text-[var(--ink-soft)]">
+          <p>しのつ湖は、新篠津村にある自然湖です。冬のワカサギ釣りで知られ、湖と農村、湿地が隣り合う風景が広がります。</p>
+          <p>村の近くには、ラムサール条約に登録された湿地もあり、渡り鳥の飛来で知られます。湖と田んぼ、そして生き物がつながる様子を、静かに観察してみてください。</p>
+          <p>天候や水温、生き物の様子は季節ごとに大きく変わります。訪れるたびに違う顔を見せるのが、この土地の魅力です。</p>
+        </div>
+      </div>
+      <div class="rounded-2xl border border-[var(--line)] bg-[var(--ink)] p-7 text-white md:p-9">
+        <span class="eyebrow !text-[var(--sun)]">VISITOR RESPONSIBILITY</span><h2 class="display-title mt-4 text-3xl">訪客の責任</h2>
+        <ul class="mt-6 space-y-4 text-sm leading-7 text-white/80">
+          <li class="flex gap-3"><Icon name="shield" class="mt-1 h-4 w-4 shrink-0 text-[var(--sun)]" /><span>ゴミは持ち帰り、湖と自然をそのままの姿で残しましょう。</span></li>
+          <li class="flex gap-3"><Icon name="leaf" class="mt-1 h-4 w-4 shrink-0 text-[var(--sun)]" /><span>野生動物に餌をやらず、花や植物を採らない、農地に立ち入らない。</span></li>
+          <li class="flex gap-3"><Icon name="clock" class="mt-1 h-4 w-4 shrink-0 text-[var(--sun)]" /><span>火の取り扱いに注意し、キャンプは指定の場所で。係員の案内に従ってください。</span></li>
+          <li class="flex gap-3"><Icon name="snow" class="mt-1 h-4 w-4 shrink-0 text-[var(--sun)]" /><span>冬は自然と自分を守るため、天候と服装に十分備えましょう。</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell">
+      <span class="eyebrow">FAQ</span><h2 class="display-title mt-5 text-4xl md:text-5xl">よくある質問</h2>
+      <div class="mt-10 divide-y divide-[var(--line)] border-y border-[var(--line)]">
+        {faq.map((item) => (
+          <details class="group py-6">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 text-base font-bold md:text-lg">
+              <span>{item.q}</span>
+              <Icon name="arrow" class="h-4 w-4 shrink-0 text-[var(--lake-deep)] transition group-open:-rotate-90" />
+            </summary>
+            <p class="mt-3 max-w-3xl text-sm leading-7 text-[var(--ink-soft)]">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
+    <Sources />
   </section>
 
   <section class="section-space container-shell">

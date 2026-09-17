@@ -2,18 +2,27 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import Icon from '@/components/Icon.astro';
-import { accessRoutes, site } from '@/data/site';
+import { transportGuides, visitorServices, site } from '@/data/site';
 ---
-<BaseLayout title="詳細アクセス" description="札幌、新千歳空港、旭川方面から、しのつ公園への車・JR・バスでの詳しい行き方と訪問時の注意点。" image="/images/shinotsu-tower.webp">
-  <PageHero eyebrow="ACCESS" title="旅は、道の選び方から。" description="札幌から車で約50分。公共交通ではJRと新篠津交通バスを乗り継ぎます。特に帰りのバス時刻と、冬の道路状況は先に確認しておきましょう。" image="/images/shinotsu-tower.webp" imageAlt="しのつ公園のランドマークと空" />
+<BaseLayout title="アクセス・無料駐車場情報" description="しのつ公園（新篠津村）へのアクセス方法。札幌から車で約50分、無料駐車場完備。バスでの行き方、周辺地図、Googleマップも掲載。" image="/images/shinotsu-tower.webp">
+  <PageHero eyebrow="ACCESS" title="旅は、道の選び方から。" description="札幌から車で約50分。空港・公共交通・タクシー・車、それぞれの行き方と、現地の施設の概要をまとめました。特に冬の道路とバスの時刻は、出発前にご確認を。" image="/images/shinotsu-tower.webp" imageAlt="しのつ公園のランドマークと空" />
 
   <section class="section-space container-shell">
-    <div class="grid gap-5 lg:grid-cols-2">
-      {accessRoutes.map((route) => (
+    <span class="eyebrow">HOW TO GET THERE</span><h2 class="display-title mt-5 text-4xl md:text-5xl">詳しい交通案内</h2>
+    <div class="mt-10 grid gap-5 lg:grid-cols-2">
+      {transportGuides.map((guide) => (
         <article class="rounded-2xl border border-[var(--line)] bg-white/55 p-7 md:p-8">
-          <div class="flex items-start justify-between gap-4"><div><p class="text-[.67rem] font-bold tracking-[.15em] text-[var(--lake-deep)]">{route.mode}</p><h2 class="mt-2 font-serif text-2xl">{route.from}</h2></div><span class="rounded-full bg-[var(--paper-deep)] px-3 py-2 text-xs font-bold">{route.total}</span></div>
-          <ol class="route-line mt-7 space-y-3">{route.steps.map((step, i) => <li class="flex items-center gap-4"><span class="route-dot">{i+1}</span><span class="text-sm font-semibold">{step}</span></li>)}</ol>
-          <p class="mt-7 border-t border-[var(--line)] pt-5 text-xs leading-6 text-[var(--ink-soft)]">{route.note}</p>
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <Icon name={guide.icon} class="h-7 w-7 text-[var(--lake-deep)]" />
+              <h3 class="font-serif text-2xl">{guide.title}</h3>
+            </div>
+            <div class="hidden gap-2 sm:flex">
+              {guide.leads.map((lead) => <span class="rounded-full bg-[var(--paper-deep)] px-3 py-1.5 text-xs font-bold text-[var(--ink-soft)]">{lead}</span>)}
+            </div>
+          </div>
+          <ol class="route-line mt-7 space-y-3">{guide.steps.map((step, i) => <li class="flex items-center gap-4"><span class="route-dot">{i + 1}</span><span class="text-sm font-semibold">{step}</span></li>)}</ol>
+          <p class="mt-7 border-t border-[var(--line)] pt-5 text-xs leading-6 text-[var(--ink-soft)]">{guide.note}</p>
         </article>
       ))}
     </div>
@@ -51,6 +60,19 @@ import { accessRoutes, site } from '@/data/site';
   </section>
 
   <section class="section-space container-shell">
+    <span class="eyebrow">SERVICES NEARBY</span><h2 class="display-title mt-5 text-4xl md:text-5xl">訪客サービスと周辺施設</h2>
+    <p class="lead-text mt-6">特定の店名は挙げず、現地で利用できる施設の「タイプ」を中立的にまとめました。営業・提供内容は季節や日によって変わるため、訪問前に各施設へご確認ください。</p>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {visitorServices.map((svc) => (
+        <article class="rounded-2xl border border-[var(--line)] bg-white/55 p-7">
+          <div class="flex items-center gap-3"><Icon name={svc.icon} class="h-6 w-6 text-[var(--lake-deep)]" /><h3 class="font-serif text-xl">{svc.category}</h3></div>
+          <p class="mt-5 text-sm leading-7 text-[var(--ink-soft)]">{svc.note}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-space container-shell">
     <span class="eyebrow">TRAVEL NOTES</span><h2 class="display-title mt-5 text-4xl">訪問前のチェック</h2>
     <div class="mt-9 grid gap-5 md:grid-cols-3">
       {[
@@ -58,6 +80,13 @@ import { accessRoutes, site } from '@/data/site';
         ['冬の運転','吹雪、凍結、視界不良を想定し、時間に余裕を。無理な移動は避けてください。','snow'],
         ['施設営業','温泉、飲食、キャンプ、ワカサギ釣りは季節・日程で条件が変わります。','clock'],
       ].map(([t,d,icon]) => <article class="rounded-2xl border border-[var(--line)] bg-white/50 p-7"><Icon name={icon as 'train'|'snow'|'clock'} class="h-7 w-7 text-[var(--lake-deep)]"/><h3 class="mt-5 font-serif text-2xl">{t}</h3><p class="mt-4 text-sm leading-7 text-[var(--ink-soft)]">{d}</p></article>)}
+    </div>
+  </section>
+
+  <section class="section-space border-y border-[var(--line)] bg-white/30">
+    <div class="container-shell grid gap-8 rounded-[1.7rem] bg-[var(--ink)] p-8 text-white md:grid-cols-[1fr_auto] md:items-center md:p-12">
+      <div><span class="text-xs font-bold tracking-[.2em] text-[var(--sun)]">PLAN YOUR VISIT</span><h2 class="display-title mt-4 text-3xl md:text-4xl">天気と季節も、旅程のうち。</h2><p class="mt-5 max-w-3xl text-sm leading-7 text-white/70">天候によって楽しみ方が変わる土地です。訪問前に天気と交通情報を確認し、ゆとりのある計画を立てましょう。</p></div>
+      <a href="/season/" class="btn-primary !border-white !bg-white !text-[var(--ink)]">季節の楽しみ <Icon name="arrow" class="h-4 w-4" /></a>
     </div>
   </section>
 </BaseLayout>

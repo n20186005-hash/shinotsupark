@@ -9,12 +9,14 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  extraJsonLd?: object[];
 }
 const {
   title = site.name,
   description = site.description,
   image = '/images/shinotsu-overview.webp',
   noindex = false,
+  extraJsonLd = [],
 } = Astro.props;
 const fullTitle = title === site.name ? `${site.name}｜北海道・新篠津村の湖畔ガイド` : `${title}｜${site.name}`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
@@ -22,18 +24,24 @@ const ogImage = new URL(image, Astro.site ?? Astro.url.origin);
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'TouristAttraction',
+  '@id': 'https://shinotsupark.com/#attraction',
   name: site.name,
+  alternateName: [site.fullNameEn, site.shortName],
   description,
+  url: canonical.toString(),
+  image: [ogImage.toString()],
+  isAccessibleForFree: true,
   address: {
     '@type': 'PostalAddress',
     addressRegion: '北海道',
     addressLocality: '新篠津村',
     streetAddress: '第45線北2',
+    postalCode: site.postalCode,
     addressCountry: 'JP',
   },
   geo: { '@type': 'GeoCoordinates', latitude: site.coordinates.lat, longitude: site.coordinates.lng },
-  image: ogImage.toString(),
-  url: canonical.toString(),
+  hasMap: site.reviewSourceUrl,
+  sameAs: [site.reviewSourceUrl, site.officialTourismUrl],
 };
 ---
 <!doctype html>
@@ -56,12 +64,20 @@ const jsonLd = {
     <meta name="twitter:card" content="summary_large_image" />
     <title>{fullTitle}</title>
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+    {extraJsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)}></script>)}
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`}></script>
     <script is:inline define:vars={{ gaId: site.gaId }}>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', gaId, { anonymize_ip: true });
+    </script>
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
     </script>
   </head>
   <body>

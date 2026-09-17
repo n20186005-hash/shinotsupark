@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+import { site } from '@/data/site';
+---
+<section class="rounded-2xl border border-[var(--line)] bg-white/30 p-7" aria-label="情報源・出典">
+  <span class="eyebrow">SOURCES</span>
+  <h2 class="display-title mt-4 text-2xl md:text-3xl">情報源・出典</h2>
+  <ul class="mt-6 space-y-4 text-sm leading-7 text-[var(--ink-soft)]">
+    <li class="flex gap-3">
+      <Icon name="map" class="mt-1 h-4 w-4 shrink-0 text-[var(--lake-deep)]" />
+      <span><strong class="text-[var(--ink)]">口コミ・評価</strong>（同期日 {site.reviewSyncMonth}）：Google マップ（Google Maps）のユーザー評価を同期しています。著作権は原作者および Google マップに帰属します。→ <a href={site.reviewSourceUrl} target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-[var(--lake-deep)]">Google マップで全ての口コミを見る↗</a></span>
+    </li>
+    <li class="flex gap-3">
+      <Icon name="leaf" class="mt-1 h-4 w-4 shrink-0 text-[var(--lake-deep)]" />
+      <span><strong class="text-[var(--ink)]">観光情報</strong>：<a href={site.officialTourismUrl} target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:text-[var(--lake-deep)]">北海道公式観光ポータル（visit-hokkaido.jp）↗</a></span>
+    </li>
+    <li class="flex gap-3">
+      <Icon name="shield" class="mt-1 h-4 w-4 shrink-0 text-[var(--lake-deep)]" />
+      <span>本サイトは非公式の観光ガイドです。最新の営業・交通・天候情報は、各公式サイトでご確認ください。</span>
+    </li>
+  </ul>
+</section>
